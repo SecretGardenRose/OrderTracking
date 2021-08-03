@@ -19,13 +19,21 @@
     <meta name="robots" content="noindex, nofollow" />
     <meta name="keywords" content="" />
 
+    <link rel="stylesheet" href="css/bootstrap.min.css">
     <link href="css/styles-3d526f0f26.css" rel="stylesheet" />
+    <style>
+        #product_info img{
+            width: 100%;
+        }
+        .container{
+            padding: 0;
+            margin:0;
+        }
+    </style>
 
 </head>
 
 <body class=" js-header-oalr js-body" >
-    
-
     <!-- header -->
     <header class="js-header header-fixed">
         <section class="headerbar">
@@ -330,119 +338,67 @@
 
     <!-- main -->
     <div class="ufsite main"  id="app">
-        <h1 class="order-title">Your bouquet</h1>
+        <h1 class="order-title">Your Order Detail</h1>
         <fieldset class="border-section order-follow">
             <div class="order-tracking-form">
-                <!-- form -->
-                <form method="post" enctype="multipart/form-data" action="javascript:">
-                    <div class="form-group">
-                        <label class="required">
-                            E-mail
-                            <strong>*</strong></label>
-                        <input type="email" id="form_order_tracking_email" name="form_order_tracking[email]"
-                            v-model="query.mail" required="required" class="form-control" />
+                <div class="container">
+                    <div class="row" id="product_info" style="display: flex;">
+                        <div class="col-md-5">
+                            <img src="images/default.jpg" alt="">
+                        </div>
+                        <div class="col-md-7">
+                            <!-- order -->
+                            <div class="col-md-12">
+                                <h4>Order Name:{{order.name}}</h4>
+                                <h5>Total Price:${{order.total_price}}</h5>
+                            </div>
+                            <div class="col-md-12">
+                                <p>
+                                    Note:{{order.note}}
+                                </p>
+                            </div>
+                            <!-- customer -->
+                            <div class="col-md-12">
+                                <h4>Customer: {{order.customer.last_name}}  {{order.customer.first_name}}</h4>
+                            </div>
+                            <div class="col-md-12">
+                                <h5>Email:{{order.customer.email}}</h5>
+                            </div>
+                            <div class="col-md-12">
+                                <h5>Phone:{{order.customer.phone}}</h5>
+                            </div>
+                            <div class="col-md-12">
+                                <h5>Zip:{{order.customer.zip}}</h5>
+                            </div>
+                            <div class="col-md-12">
+                                <h5>State: <span style="color:red;">{{order.customer.state}}</span></h5>
+                            </div>
+                            <!-- address -->
+                            <div class="col-md-12">
+                                <h4>Address: {{order.customer.default_address.city}}-
+                                    {{order.customer.default_address.address1}}
+                                </h4>
+                            </div>
+                            
+                            <div class="col-md-12" style="position: absolute;bottom: 0;">
+                                <button type="button" class="button-grey" @click="back_home">Back Home</button>
+                                <!-- <button type="button" style="padding:5px 20px;" class="btn btn-default">Back Home</button> -->
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label class="required">
-                            Order number
-                            <strong>*</strong></label>
-                        <input type="text" id="form_order_tracking_reference" name="form_order_tracking[reference]"
-                            v-model="query.order_number" required="required" class="form-control" />
-                    </div>
-                    <a class="text-color-link" href="#">Lost your order number?</a><br>
-                    <input type="hidden" id="form_order_tracking__token" name="form_order_tracking[_token]"
-                        value="wqGtCLYt09ykwS_1nyLLNvc9i6lC0wGKeVqB466vd6I" />
-                    <button type="submit" class="button-grey"
-                        data-action="submit-connexion-order-follow" @click="submit_order">Submit</button>
-                </form>
+                </div>
+               
             </div>
         </fieldset>
     </div>
 
-    <footer>
-
-        <section class="row footer-zero">
-            <div class="footer-brand"><img class="logo-oalr" src="picture/iso-oalr.svg" alt="Ode à la Rose Inc."
-                    width="45" height="45" />
-                <h5 class="footer-title">Ode à la ROSE</h5>
-                <p>21-43 44th Road Long Island City, NY 11101 | (646) 660-5281</p>
-            </div>
-            <div class="trustpilot-widget" data-locale="en-US" data-template-id=53aa8807dec7e10d38f59f32
-                data-businessunit-id=5a79744bc88f10000105b352 data-style-height="100px" data-style-width="100%"
-                data-theme="light">
-                <a href="#" target="_blank" rel="noopener">Trustpilot</a>
-            </div>
-        </section>
-        <section class="row footer-first">
-            <div class="footer-block">
-                <p class="txt-guarantee">If, for any reason, you are not 100% satisfied with your flowers or its
-                    delivery, please <a class="contact-us-link"
-                        href="#">contact us.</a></p>
-                <div class="footer-bold">(646) 660-5281</div> <a class="footer-mailto"
-                    href="#">info@odealarose.com</a>
-            </div>
-            <div class="footer-block">
-                <ul>
-                    <li><a href="#" title="Your account" target="_parent">Your account</a></li>
-                    <li><a href="#" title="Order Status" target="_parent">Order Status</a></li>
-                    <li><a href="#" title="Press" target="_parent">Press</a></li>
-                    <li><a href="#" title="Articles" target="_parent">Articles</a></li>
-                    <li><a href="#" title="FAQ" target="_parent">FAQ</a></li>
-                    <li><a href="#" title="Site Map" target="_parent">Site Map</a></li>
-                </ul>
-            </div>
-            <div class="footer-block">
-                <ul>
-                    <li><a href="#" title="Where do we deliver ?" target="_parent">Where do we
-                            deliver ?</a></li>
-                    <li><a href="#" title="Meet the founders" target="_parent">Meet the founders</a></li>
-                    <li><a href="#" title="Weekly flowers" target="_parent">Weekly flowers</a>
-                    </li>
-                    <li><a href="#" title="Wedding flowers" target="_parent">Wedding flowers</a>
-                    </li>
-                    <li><a href="#" title="Our Roses" target="_parent">Our Roses</a></li>
-                    <li><a href="#" title="Blog" target="_parent">Blog</a></li>
-                </ul>
-            </div>
-            <div class="footer-block">
-                <ul>
-                    <li><a class="txtGuarantee" href="#" title="Secured Payment"
-                            target="_parent">Secured Payment</a></li>
-                    <li><a class="txtGuarantee" href="#" title="Terms &amp; Conditions"
-                            target="_parent">Terms &amp; Conditions</a></li>
-                    <li><a class="txtGuarantee" href="#" title="Privacy policy"
-                            target="_parent">Privacy policy</a></li>
-                </ul>
-            </div>
-            <div class="footer-block footer-block-4">
-                <p>
-                <form method="post" id="newsletter-sign-up" data-action="/ajax/newsletter-subscription">
-                    <input type="email" id="subscribe_newsletter_email" name="subscribe_newsletter[email]"
-                        required="required" class="form-control" placeholder="ENTER YOUR EMAIL">
-                    <div class="alert alert-danger text-center hide">Invalid e-mail</div>
-                    <button type="submit" class="button-oalr" id="newsletter-submit">KEEP ME POSTED</button>
-                </form>
-
-                <div class="modal-overlay closed" id="modal-overlay"></div>
-                <div class="modal closed" id="modal-newsletter">
-                    <button class="close-button" id="close-newsletter">X</button>
-                    <div class="modal-guts">
-                        <div class="text-center" id="subscribe-ok">Thank you for signing up to our newsletter!</div>
-                    </div>
-                </div>
-                </p>
-            </div>
-        </section>
-
-    </footer>
 
     <!-- script -->
     <script type="text/javascript" src="js/bootstrap.min.js" async></script>
-    <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/vue.min.js"></script>
     <script src="js/axios.js"></script>
     <!-- service javascript -->
-    <script src="js/index.js"></script>
+    <script src="js/detail.js"></script>
 
     <button class="back-to-top js-back-to-top hidden-xs"></button>
 </body>

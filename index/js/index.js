@@ -1,33 +1,4 @@
-// function getByDate(status, querydate, check) {
-//     var data = new FormData();
-//     data.append('date', querydate);
-// data.append('fulfillment', status);
-// data.append('check', check);
 
-//     var xhr = new XMLHttpRequest();
-//     xhr.open('POST', 'test1.php');
-//     xhr.onload = function () {
-
-//             var div = document.getElementById('result_div_id');
-//             if (div) {
-//                     div.remove();
-//             }
-
-//             //Create the element using the createElement method.
-//             var myDiv = document.createElement("div");
-
-//             //Set its unique ID.
-//             myDiv.id = 'result_div_id';
-
-//             //Add your content to the DIV
-//             myDiv.innerHTML = this.response;;
-
-//             //Finally, append the element to the HTML body
-//             document.body.appendChild(myDiv);
-//     };
-//     xhr.send(data);
-//     return false;
-// }
 
 // Api Base url
 axios.defaults.baseURL = 'http://localhost:2021/';
@@ -35,34 +6,45 @@ axios.defaults.baseURL = 'http://localhost:2021/';
 new Vue({
     el:"#app",
     data:{
-        order:{
+        order:"",
+        query:{
             mail:"",
             order_number:""
         }
     },
     created () {
-      console.log("ok");  
-      this.submit_order();
     },
     methods: {
         submit_order(){
             var that=this;
+
+            if(that.query.mail=="" || that.query.order_number==""){
+                alert("请先邮箱地址和订单编号！");
+                return;
+            }
+            var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
+            // var reg=/[A-z]+[A-z0-9_-]*\@[A-z0-9]+\.[A-z]+/; 
+            if(!reg.test(that.query.mail)){
+                alert("邮箱格式不正确，请重新输入！");
+            }
             
+            //5287 lana4gana@gmail.com
             axios.post('../service/test3.php').then(function (res) {
-                console.log(res);
                 if(res.status==200){
                     var datalist=res.data.orders;
-                    console.log(datalist);
+                    // console.log(datalist);
                     for(var i=0;i<datalist.length;i++){
                         var item=datalist[i];
-                        var flag=that.compateDate(item.created_at);
-                        console.log(flag);
-                        // console.log(now_year2+"-"+now_month2+"-"+now_date2);
+                        //find myself order
+                        if(item.order_number==that.query.order_number && item.email==that.query.mail){
+                            console.log(item);
+                            that.order=item;
+                            location.href="detail.html?id="+item.id;
+                        }
                     }
                 }else{
                     alert("no data");
                 }
-                // var datas=res.data
             })
         },
         compateDate(t){
