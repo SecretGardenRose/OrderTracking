@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
+ * Copyright (c) 2016-2021 南行开源 All rights reserved.
  *
  * http://www.southiu.cn
  *
@@ -24,7 +24,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 /**
  * 有@LoginUser注解的方法参数，注入当前登录用户
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Mr.Tang 15902072436@163.com
  */
 @Component
 public class LoginUserHandlerMethodArgumentResolver implements HandlerMethodArgumentResolver {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
+ * Copyright (c) 2016-2021 南行开源 All rights reserved.
  *
  * http://www.southiu.cn
  *
@@ -20,7 +20,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Redis切面处理类
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Mr.Tang 15902072436@163.com
  */
 @Aspect
 @Configuration

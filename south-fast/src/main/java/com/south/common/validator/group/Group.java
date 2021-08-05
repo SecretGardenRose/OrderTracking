@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
+ * Copyright (c) 2016-2021 南行开源 All rights reserved.
  *
  * http://www.southiu.cn
  *
@@ -13,7 +13,7 @@ import javax.validation.GroupSequence;
 /**
  * 定义校验顺序，如果AddGroup组失败，则UpdateGroup组不会再校验
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Mr.Tang 15902072436@163.com
  */
 @GroupSequence({AddGroup.class, UpdateGroup.class})
 public interface Group {

@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
+ * Copyright (c) 2016-2021 南行开源 All rights reserved.
  *
  * http://www.southiu.cn
  *
@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * XSS过滤处理
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Mr.Tang 15902072436@163.com
  */
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     //没被包装过的HttpServletRequest（特殊场景，需要自己过滤）

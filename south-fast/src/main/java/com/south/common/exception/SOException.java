@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
+ * Copyright (c) 2016-2021 南行开源 All rights reserved.
  *
  * http://www.southiu.cn
  *
@@ -11,7 +11,7 @@ package com.south.common.exception;
 /**
  * 自定义异常
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Mr.Tang 15902072436@163.com
  */
 public class SOException extends RuntimeException {
 	private static final long serialVersionUID = 1L;

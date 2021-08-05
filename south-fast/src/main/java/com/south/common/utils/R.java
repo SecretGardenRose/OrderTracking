@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
+ * Copyright (c) 2016-2021 南行开源 All rights reserved.
  *
  * http://www.southiu.cn
  *
@@ -16,7 +16,7 @@ import java.util.Map;
 /**
  * 返回数据
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Mr.Tang 15902072436@163.com
  */
 public class R extends HashMap<String, Object> {
 	private static final long serialVersionUID = 1L;

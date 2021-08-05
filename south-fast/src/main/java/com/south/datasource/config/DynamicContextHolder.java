@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2018 人人开源 All rights reserved.
+ * Copyright (c) 2018 南行开源 All rights reserved.
  *
  * http://www.southiu.cn
  *
@@ -14,7 +14,7 @@ import java.util.Deque;
 /**
  * 多数据源上下文
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Mr.Tang 15902072436@163.com
  */
 public class DynamicContextHolder {
     @SuppressWarnings("unchecked")

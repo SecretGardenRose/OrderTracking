@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2018 人人开源 All rights reserved.
+ * Copyright (c) 2018 南行开源 All rights reserved.
  *
  * http://www.southiu.cn
  *
@@ -16,7 +16,7 @@ import java.sql.SQLException;
 /**
  * DruidDataSource
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Mr.Tang 15902072436@163.com
  * @since 1.0.0
  */
 public class DynamicDataSourceFactory {

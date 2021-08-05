@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2016-2019 人人开源 All rights reserved.
+ * Copyright (c) 2016-2021 南行开源 All rights reserved.
  *
  * http://www.southiu.cn
  *
@@ -18,7 +18,7 @@ import java.util.UUID;
 /**
  * 云存储(支持七牛、阿里云、腾讯云、又拍云)
  *
- * @author Mark sunlightcs@gmail.com
+ * @author Mr.Tang 15902072436@163.com
  */
 public abstract class CloudStorageService {
     /** 云存储配置信息 */
