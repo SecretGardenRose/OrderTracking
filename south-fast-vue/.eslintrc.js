@@ -10,7 +10,7 @@ module.exports = {
     browser: true,
   },
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
-  extends: 'standard',
+  // extends: 'standard',   //开始es 取消注释
   // required to lint *.vue files
   plugins: [
     'html'

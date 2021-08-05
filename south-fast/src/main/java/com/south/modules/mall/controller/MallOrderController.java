@@ -4,14 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import com.south.common.exception.BizCodeEnume;
 import com.south.common.exception.SOException;
 import com.south.common.utils.Constant;
+import com.south.modules.mall.OrderStatusVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -54,14 +52,31 @@ public class MallOrderController {
     }
 
     /**
-     * 导入第三方订单数据
+     * 订单状态列表
+     */
+    @ApiOperation("订单状态列表")
+    @GetMapping("/statusList")
+    public R statusList(){
+        List<OrderStatusVo> statusList = mallOrderService.getStatusList();
+
+        return R.ok().put("data", statusList);
+    }
+
+    /**导入第三方订单数据
+     *
+     * @param email
+     * @param orderNo
+     * @return
      */
     @ApiOperation("导入第三方订单数据")
-    @GetMapping("/importOrder")
-    public R importOrder(){
+    @PostMapping("/importOrder")
+    public R importOrder(@RequestParam("email") String email,@RequestParam("orderNo") String orderNo){
+        // 1.通过第三方数据导入
         mallOrderService.importOrder();
 
-        return R.ok();
+        // 2.获取用户需要查询的数据(通过邮箱与订单号查询)
+        MallOrderEntity order=mallOrderService.findOrder( email, orderNo);
+        return R.ok().put("data",order);
     }
 
     /**

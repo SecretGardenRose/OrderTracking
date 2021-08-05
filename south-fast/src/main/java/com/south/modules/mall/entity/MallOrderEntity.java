@@ -58,6 +58,18 @@ public class MallOrderEntity implements Serializable {
 	 */
 	private String note;
 	/**
+	 * 用户地址
+	 */
+	private String address;
+	/**
+	 * 用户邮编
+	 */
+	private String userZip;
+	/**
+	 * 所在城市
+	 */
+	private String city;
+	/**
 	 * 订单总额
 	 */
 	private BigDecimal totalPrice;

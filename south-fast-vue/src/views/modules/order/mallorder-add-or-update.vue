@@ -4,44 +4,55 @@
     :close-on-click-modal="false"
     :visible.sync="visible">
     <el-form :model="dataForm" :rules="dataRule" ref="dataForm" @keyup.enter.native="dataFormSubmit()" label-width="120px">
-    <el-form-item label="订单编号" prop="orderNumber">
-      <el-input v-model="dataForm.orderNumber" placeholder="订单编号"></el-input>
+    <el-form-item label="订单编号" >
+      <el-input v-model="dataForm.orderNumber" disabled placeholder="订单编号"></el-input>
     </el-form-item>
-    
-    <el-form-item label="客户邮箱" prop="userEmail">
-      <el-input v-model="dataForm.userEmail" placeholder="客户邮箱"></el-input>
+    <el-form-item label="客户邮箱" >
+      <el-input v-model="dataForm.userEmail"  disabled placeholder="客户邮箱"></el-input>
     </el-form-item>
-    <el-form-item label="客户电话" prop="userPhone">
-      <el-input v-model="dataForm.userPhone" placeholder="客户电话"></el-input>
+    <el-form-item label="客户电话" >
+      <el-input v-model="dataForm.userPhone"  disabled placeholder="客户电话"></el-input>
+    </el-form-item>
+    <el-form-item label="客户名（姓）" >
+      <el-input v-model="dataForm.firstName" disabled placeholder="客户名（姓）"></el-input>
+    </el-form-item>
+    <el-form-item label="客户名（名）">
+      <el-input v-model="dataForm.lastName" disabled placeholder="客户名（名）"></el-input>
+    </el-form-item>
+    <el-form-item label="订单总额" >
+      <el-input v-model="dataForm.totalPrice" disabled placeholder="订单总额"></el-input>
     </el-form-item>
     <el-form-item label="订单状态" prop="orderStatus">
-      <el-input v-model="dataForm.orderStatus" placeholder="订单状态"></el-input>
-    </el-form-item>
-    <el-form-item label="客户名（姓）" prop="firstName">
-      <el-input v-model="dataForm.firstName" placeholder="客户名（姓）"></el-input>
-    </el-form-item>
-    <el-form-item label="客户名（名）" prop="lastName">
-      <el-input v-model="dataForm.lastName" placeholder="客户名（名）"></el-input>
-    </el-form-item>
-    <el-form-item label="订单总额" prop="totalPrice">
-      <el-input v-model="dataForm.totalPrice" placeholder="订单总额"></el-input>
+      <!-- <el-input v-model="dataForm.orderStatus" disabled placeholder="订单状态"></el-input> -->
+      <el-select v-model="dataForm.orderStatus" placeholder="请选择订单状态" style="width:100%;">
+        <el-option
+          v-for="item in statusList"
+          :key="item.id"
+          :label="item.name"
+          :value="item.name">
+        </el-option>
+      </el-select>
     </el-form-item>
     <el-form-item label="备注信息" >
-      <el-input type="textarea"  :autosize="{ minRows: 2, maxRows: 8}" v-model="dataForm.note" placeholder="备注信息"></el-input>
+      <el-input type="textarea"  :autosize="{ minRows: 3, maxRows: 8}" v-model="dataForm.note" placeholder="备注信息"></el-input>
     </el-form-item>
     
-    <el-form-item label="商品图片" prop="flowerPicture">
+    <el-form-item label="商品图片" >
       <!-- <el-input v-model="dataForm.flowerPicture" placeholder="商品图片"></el-input> -->
       <el-upload
           drag
           :action="url"
           :before-upload="beforeUploadHandle"
           :on-success="successHandle"
+          :show-file-list="false"
           multiple
           :file-list="fileList"
           style="text-align: center;">
-          <i class="el-icon-upload"></i>
-          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+          <img v-if="imageUrl!=''" :src="imageUrl" class="avatar" style="width:100%;height:100%;">
+          <div v-else>
+            <i   class="el-icon-upload"></i>
+            <div  class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+          </div>
           <div class="el-upload__tip" slot="tip">只支持jpg、png、gif格式的图片！</div>
         </el-upload>
     </el-form-item>
@@ -57,11 +68,12 @@
   export default {
     data () {
       return {
+        imageUrl: '',
         url: '',
         num: 0,
         successNum: 0,
         fileList: [],
-
+        statusList: [],
         visible: false,
         dataForm: {
           id: 0,
@@ -108,7 +120,9 @@
     },
     methods: {
       init (id) {
+        this.imageUrl='';
         // this.url = this.$http.adornUrl(`/sys/oss/upload?token=${this.$cookie.get('token')}`)
+        this.initStatusList()
 
         this.dataForm.id = id || 0
         this.visible = true
@@ -116,13 +130,14 @@
           this.$refs['dataForm'].resetFields()
           if (this.dataForm.id) {
             this.$http({
-              url: this.$http.adornUrl(`/mall/mallorder/info/${this.dataForm.id}`),
+              url : this.$http.adornUrl(`/mall/mallorder/info/${this.dataForm.id}`),
               method: 'get',
               params: this.$http.adornParams()
             }).then(({data}) => {
               if (data && data.code === 0) {
                 this.dataForm.orderNumber = data.mallOrder.orderNumber
                 this.dataForm.flowerPicture = data.mallOrder.flowerPicture
+                this.imageUrl = data.mallOrder.flowerPicture==null?'':data.mallOrder.flowerPicture
                 this.dataForm.userEmail = data.mallOrder.userEmail
                 this.dataForm.userPhone = data.mallOrder.userPhone
                 this.dataForm.orderStatus = data.mallOrder.orderStatus
@@ -134,6 +149,19 @@
             })
           }
         })
+      },
+      //初始化订单状态列表数据
+      initStatusList(){
+        this.$http({
+              url : this.$http.adornUrl(`/mall/mallorder/statusList`),
+              method: 'get',
+              params: this.$http.adornParams()
+            }).then(({data}) => {
+              if (data && data.code === 0) {
+                console.log(data.data);
+                this.statusList=data.data;
+              }
+            })
       },
       // 表单提交
       dataFormSubmit () {
@@ -178,7 +206,25 @@
           this.$message.error('只支持jpg、png、gif格式的图片！')
           return false
         }
+        this.uploadingHandle(file)
         this.num++
+      },
+      // 上传图片到服务器
+      uploadingHandle (file) {
+        var that = this
+        console.log(that.fileList)
+        var params = new FormData()
+        params.append("file" , file)
+        this.$http({
+              url: this.$http.adornUrl(`/mall/mallorder/upload/uploadOrderImage`),
+              method : 'post',
+              data: params
+            }).then(({data}) => {
+              if (data && data.code === 0) {
+                that.imageUrl = data.msg
+                that.dataForm.flowerPicture=data.msg
+              }
+            })
       },
       // 上传成功
       successHandle (response, file, fileList) {

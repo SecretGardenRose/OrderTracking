@@ -18,7 +18,7 @@ south-fast
 │  ├─oss 文件服务模块
 │  └─sys 权限模块
 │ 
-├─RenrenApplication 项目启动类
+├─SouthApplication 项目启动类
 │  
 ├──resources 
 │  ├─mapper SQL对应的XML文件

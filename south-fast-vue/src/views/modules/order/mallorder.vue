@@ -6,7 +6,7 @@
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
-        <el-button v-if="isAuth('mall:mallorder:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button>
+        <!-- <el-button v-if="isAuth('mall:mallorder:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button> -->
         <el-button v-if="isAuth('mall:mallorder:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
     </el-form>
@@ -26,7 +26,7 @@
         prop="id"
         header-align="center"
         align="center"
-        label="主键ID">
+        label="ID">
       </el-table-column>
       <el-table-column
         prop="orderNumber"
@@ -39,6 +39,19 @@
         header-align="center"
         align="center"
         label="商品图片">
+        <template slot-scope="scope">
+          <div slot="reference" class="name-wrapper">
+              <el-tag v-if="scope.row.flowerPicture==null || scope.row.flowerPicture==''" type="success">暂无图片</el-tag>
+              <el-image
+                v-else
+                style="width: 120px; height: 100px"
+                class="flower_img"
+                :src="scope.row.flowerPicture"
+                fit="scale-down"></el-image>
+              
+              <!-- <el-avatar shape="square" size="small" :src="scope.row.flowerPicture"></el-avatar> -->
+            </div>
+        </template>
       </el-table-column>
       <el-table-column
         prop="userEmail"
@@ -215,3 +228,9 @@
     }
   }
 </script>
+<style>
+.flower_img img{
+  width: 100%;
+  height: 100%;
+}
+</style>
