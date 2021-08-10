@@ -62,6 +62,18 @@ public class MallOrderController {
         return R.ok().put("data", statusList);
     }
 
+    /**
+     * 获取最新数据
+     */
+    @ApiOperation("获取最新数据")
+    @GetMapping("/getNewsData")
+    public R getNewsData(@RequestParam Map<String, Object> params){
+        mallOrderService.importOrder();
+        PageUtils page = mallOrderService.queryPage(params);
+
+        return R.ok().put("page", page);
+    }
+
     /**导入第三方订单数据
      *
      * @param email

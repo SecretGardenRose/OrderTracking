@@ -32,7 +32,7 @@
         <el-submenu index="3">
           <template slot="title">Git源码</template>
           <el-menu-item index="2-1"><a href="#" target="_blank">前端</a></el-menu-item>
-          <el-menu-item index="2-2"><a href="#" target="_blank">后台</a></el-menu-item>
+          <el-menu-item index="2-2"><a href="#" >后台</a></el-menu-item>
         </el-submenu>
         <el-menu-item class="site-navbar__avatar" index="3">
           <el-dropdown :show-timeout="0" placement="bottom">

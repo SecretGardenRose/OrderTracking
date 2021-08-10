@@ -1,11 +1,14 @@
-
-
 // Api Base url
-axios.defaults.baseURL = 'http://localhost:2021/';
+axios.defaults.baseURL = 'https://www.sgrcredit.com/';
+
 
 new Vue({
     el:"#app",
     data:{
+        title:"Track Your Order",
+        default_img:"http://www.sgrcredit.com/south-fast/imgs/1e986a84-6bef-4ad3-8937-31a9afba77a5.jpg",
+        showdetail:false,
+        id:"",
         order:"",
         query:{
             mail:"",
@@ -19,64 +22,54 @@ new Vue({
             var that=this;
 
             if(that.query.mail=="" || that.query.order_number==""){
-                alert("请先邮箱地址和订单编号！");
+                alert("Please email address and order number first.");
                 return;
             }
             var reg = /^[0-9a-zA-Z_.-]+[@][0-9a-zA-Z_.-]+([.][a-zA-Z]+){1,2}$/;
             if(!reg.test(that.query.mail)){
-                alert("邮箱格式不正确，请重新输入！");
+                alert("The mailbox format is incorrect, please re-enter.");
             }
             var params=new FormData();
             params.append("email",that.query.mail);
             params.append("orderNo",that.query.order_number);
-            axios.post("http://localhost:8080/south-fast/mall/mallorder/importOrder",params).then(function(res){
+            axios.post("south-fast/mall/mallorder/importOrder",params).then(function(res){
                 // console.log(res);
                 if(res.data.code==0){
                     console.log(res.data.data);
                     if(res.data.data==null){
-                        alert("未查询到相关订单数据！");
+                        alert("Order cannot be found.");
                         return;
                     }else{
-                        location.href="detail.html?id="+res.data.data.id;
+                        that.id=res.data.data.id;
+                        that.showdetail=true;
+                        that.title="Your Order Detail";
+                        that.initdata();
+
                     }
                 }else{
-                    alert("查询订单失败");
+                    alert("Order cannot be found.");
                 }
             })
-            
-            //5287 lana4gana@gmail.com
-            // axios.post('../service/test3.php').then(function (res) {
-            //     if(res.status==200){
-            //         var datalist=res.data.orders;
-            //         // console.log(datalist);
-            //         for(var i=0;i<datalist.length;i++){
-            //             var item=datalist[i];
-            //             //find myself order
-            //             if(item.order_number==that.query.order_number && item.email==that.query.mail){
-            //                 console.log(item);
-            //                 that.order=item;
-            //                 location.href="detail.html?id="+item.id;
-            //             }
-            //         }
-            //     }else{
-            //         alert("no data");
-            //     }
-            // })
         },
-        compateDate(t){
-            var  now=new Date();
-            var now_year=now.getFullYear();
-            var now_month=now.getMonth()+1;
-            var now_date=now.getDate();
-
-            var create_date=new Date(t);
-            var t_year=create_date.getFullYear();
-            var t_month=create_date.getMonth()+1;
-            var t_date=create_date.getDate();
-            if(now_year==t_year && now_month==t_month  && now_date==t_date){
-                return  true;
-            }
-            return false;
-        }
+        initdata(){
+            var that=this;
+            
+            axios.get('south-fast/mall/mallorder/info/'+that.id).then(function (res) {
+                if(res.data.code==0){
+                    console.log(res.data.mallOrder);
+                    if(res.data.mallOrder==null){
+                        alert("no data");
+                    }else{
+                        that.order=res.data.mallOrder;
+                    }
+                }else{
+                    alert("no data");
+                }
+            })
+        },
+        back_home(){
+            this.showdetail=false;
+            that.title="Track Your Order";
+        },
     }
 })

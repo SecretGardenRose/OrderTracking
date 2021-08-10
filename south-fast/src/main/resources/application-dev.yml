@@ -32,4 +32,8 @@ spring:
                 wall:
                     config:
                         multi-statement-allow: true
-
+#  图片等文件存储位置
+south:
+    file:
+        upload:
+            dir: D:\img\south_fast\

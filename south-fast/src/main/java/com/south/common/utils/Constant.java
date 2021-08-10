@@ -34,6 +34,8 @@ public class Constant {
      */
     public static final String  ORDER_PATH_URL="/admin/api/2021-04/orders.json";
 
+    public  static final String  DEFAULT_IMAGE="https://www.sgrcredit.com/south-fast/imgs/default.png";
+
 
     /** 超级管理员ID */
 	public static final int SUPER_ADMIN = 1;

@@ -5,7 +5,7 @@ spring:
             driver-class-name: com.mysql.cj.jdbc.Driver
             url: jdbc:mysql://localhost:3306/south_fast?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
             username: root
-            password: 123456
+            password: 12345678
             initial-size: 10
             max-active: 100
             min-idle: 10
@@ -33,3 +33,8 @@ spring:
                     config:
                         multi-statement-allow: true
 
+#  图片等文件存储位置
+south:
+    file:
+        upload:
+            dir: /tmp/south_fast/images/

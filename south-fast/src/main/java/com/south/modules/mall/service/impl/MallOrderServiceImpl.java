@@ -10,8 +10,6 @@ import com.south.common.utils.Constant;
 import com.south.common.utils.Constant.ORDER_STATUS;
 import com.south.common.utils.HttpUtils;
 import com.south.modules.mall.OrderStatusVo;
-import com.south.modules.mall.controller.MallOrderController;
-import io.swagger.models.auth.In;
 import lombok.SneakyThrows;
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpResponse;
@@ -37,9 +35,18 @@ public class MallOrderServiceImpl extends ServiceImpl<MallOrderDao, MallOrderEnt
 
     @Override
     public PageUtils queryPage(Map<String, Object> params) {
+        LambdaQueryWrapper<MallOrderEntity> wrapper = new LambdaQueryWrapper<>();
+
+        if(StringUtils.isNotEmpty(params.get("orderNumber").toString())){
+            wrapper.eq(MallOrderEntity::getOrderNumber,params.get("orderNumber").toString());
+        }
+        if(StringUtils.isNotEmpty(params.get("userEmail").toString())){
+            wrapper.like(MallOrderEntity::getUserEmail,params.get("userEmail").toString());
+        }
+        wrapper.orderByDesc(MallOrderEntity::getOrderNumber);
         IPage<MallOrderEntity> page = this.page(
                 new Query<MallOrderEntity>().getPage(params),
-                new QueryWrapper<MallOrderEntity>()
+                wrapper
         );
 
         return new PageUtils(page);
@@ -123,6 +130,8 @@ public class MallOrderServiceImpl extends ServiceImpl<MallOrderDao, MallOrderEnt
                         orderEntity.setOrderNumber(order_number);
                         orderEntity.setUserEmail(user_email);
                         orderEntity.setUserPhone(user_phone);
+                        //默认图片地址
+                        orderEntity.setFlowerPicture(Constant.DEFAULT_IMAGE);
                         //设置地址信息
                         orderEntity.setAddress(address);
                         orderEntity.setUserZip(zip);

@@ -2,10 +2,14 @@
   <div class="mod-config">
     <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
       <el-form-item>
-        <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
+        <el-input v-model="dataForm.orderNumber" placeholder="订单号" clearable></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-input v-model="dataForm.userEmail" placeholder="用户邮箱" clearable></el-input>
       </el-form-item>
       <el-form-item>
         <el-button @click="getDataList()">查询</el-button>
+        <el-button type="primary" @click="getNewsData()">获取最新数据</el-button>
         <!-- <el-button v-if="isAuth('mall:mallorder:save')" type="primary" @click="addOrUpdateHandle()">新增</el-button> -->
         <el-button v-if="isAuth('mall:mallorder:delete')" type="danger" @click="deleteHandle()" :disabled="dataListSelections.length <= 0">批量删除</el-button>
       </el-form-item>
@@ -48,7 +52,6 @@
                 class="flower_img"
                 :src="scope.row.flowerPicture"
                 fit="scale-down"></el-image>
-              
               <!-- <el-avatar shape="square" size="small" :src="scope.row.flowerPicture"></el-avatar> -->
             </div>
         </template>
@@ -84,17 +87,11 @@
         label="客户名（名）">
       </el-table-column>
       <!-- <el-table-column
-        prop="note"
-        header-align="center"
-        align="center"
-        label="备注信息">
-      </el-table-column> -->
-      <el-table-column
         prop="totalPrice"
         header-align="center"
         align="center"
         label="订单总额">
-      </el-table-column>
+      </el-table-column> -->
       <el-table-column
         prop="createDate"
         header-align="center"
@@ -133,7 +130,9 @@
     data () {
       return {
         dataForm: {
-          key: ''
+          key: '',
+          orderNumber:"",
+          userEmail:"",
         },
         dataList: [],
         pageIndex: 1,
@@ -160,7 +159,30 @@
           params: this.$http.adornParams({
             'page': this.pageIndex,
             'limit': this.pageSize,
-            'key': this.dataForm.key
+            'orderNumber': this.dataForm.orderNumber,
+            'userEmail': this.dataForm.userEmail
+          })
+        }).then(({data}) => {
+          if (data && data.code === 0) {
+            this.dataList = data.page.list
+            this.totalPage = data.page.totalCount
+          } else {
+            this.dataList = []
+            this.totalPage = 0
+          }
+          this.dataListLoading = false
+        })
+      },
+      getNewsData(){
+        this.dataListLoading = true
+        this.$http({
+          url: this.$http.adornUrl('/mall/mallorder/getNewsData'),
+          method: 'get',
+          params: this.$http.adornParams({
+            'page': this.pageIndex,
+            'limit': this.pageSize,
+            'orderNumber': "",
+            'userEmail': ""
           })
         }).then(({data}) => {
           if (data && data.code === 0) {

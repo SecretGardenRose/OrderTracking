@@ -55,6 +55,7 @@
           </div>
           <div class="el-upload__tip" slot="tip">只支持jpg、png、gif格式的图片！</div>
         </el-upload>
+        <el-button style="margin-left: 50%;    transform: translateX(-50%);" v-show="imageUrl!=''&& imageUrl!=null"  @click="rewardUpload()">重新上传</el-button>
     </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -243,6 +244,9 @@
         } else {
           this.$message.error(response.msg)
         }
+      },
+      rewardUpload(){
+        this.imageUrl = "";
       }
     }
   }
