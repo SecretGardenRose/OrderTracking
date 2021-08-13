@@ -5,7 +5,10 @@ import com.south.common.utils.PageUtils;
 import com.south.modules.mall.OrderStatusVo;
 import com.south.modules.mall.controller.MallOrderController;
 import com.south.modules.mall.entity.MallOrderEntity;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
@@ -43,5 +46,35 @@ public interface MallOrderService extends IService<MallOrderEntity> {
      * @return
      */
     MallOrderEntity findOrder(String email, String orderNo);
+
+    /**
+     * 改变订单状态
+     * @param mallOrder
+     */
+    void updateOrderStatus(MallOrderEntity mallOrder);
+
+    /**
+     * 图片上传
+     * @param request
+     * @param file
+     * @return
+     */
+    String uploadimg(HttpServletRequest request, MultipartFile file);
+
+    /**
+     * 改变订单图片
+     * @param request
+     * @param file
+     * @param id
+     * @return
+     */
+    String updateOrderImages(HttpServletRequest request, MultipartFile file, String id);
+
+    /**
+     * 订单筛选列表
+     * @param params
+     * @return
+     */
+    PageUtils listForSelect(Map<String, Object> params);
 }
 

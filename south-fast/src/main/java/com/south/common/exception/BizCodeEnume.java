@@ -42,6 +42,7 @@ public enum BizCodeEnume {
     IMPORT_DATA_ERROR(50002, "订单数据导入异常"),
     MKDIR_FAILED(50003,"文件夹创建失败"),
     UPLOAD_FAILED(50004,"图片上传失败"),
+    UPDATE_DATA_ERROR(50005,"数据更新失败"),
     ;
 
     private final int code;

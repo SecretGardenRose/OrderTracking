@@ -7,6 +7,24 @@
     <el-form-item label="订单编号" >
       <el-input v-model="dataForm.orderNumber" disabled placeholder="订单编号"></el-input>
     </el-form-item>
+    <el-form-item label="商品名称" >
+      <el-input v-model="dataForm.productName" disabled placeholder="商品名称"></el-input>
+    </el-form-item>
+    <el-form-item label="标签，逗号分隔" >
+      <el-input v-model="dataForm.tags" disabled placeholder="标签，逗号分隔"></el-input>
+    </el-form-item>
+    <el-form-item label="sgr_cal" >
+      <el-input v-model="dataForm.sgrCal" disabled placeholder="sgr_cal"></el-input>
+    </el-form-item>
+    <el-form-item label="sgrCalValue" >
+      <el-input v-model="dataForm.sgrCalValue"  disabled placeholder=""></el-input>
+    </el-form-item>
+    <el-form-item label="sgr_inst" >
+      <el-input v-model="dataForm.sgrInst" disabled placeholder="sgr_inst"></el-input>
+    </el-form-item>
+    <el-form-item label="sgrInstValue" >
+      <el-input v-model="dataForm.sgrInstValue" disabled placeholder=""></el-input>
+    </el-form-item>
     <el-form-item label="客户邮箱" >
       <el-input v-model="dataForm.userEmail"  disabled placeholder="客户邮箱"></el-input>
     </el-form-item>
@@ -19,9 +37,12 @@
     <el-form-item label="客户名（名）">
       <el-input v-model="dataForm.lastName" disabled placeholder="客户名（名）"></el-input>
     </el-form-item>
-    <el-form-item label="订单总额" >
-      <el-input v-model="dataForm.totalPrice" disabled placeholder="订单总额"></el-input>
+    <el-form-item label="所在城市" >
+      <el-input v-model="dataForm.city" disabled placeholder="所在城市"></el-input>
     </el-form-item>
+    <!-- <el-form-item label="订单总额" >
+      <el-input v-model="dataForm.totalPrice" disabled placeholder="订单总额"></el-input>
+    </el-form-item> -->
     <el-form-item label="订单状态" prop="orderStatus">
       <!-- <el-input v-model="dataForm.orderStatus" disabled placeholder="订单状态"></el-input> -->
       <el-select v-model="dataForm.orderStatus" placeholder="请选择订单状态" style="width:100%;">
@@ -33,9 +54,9 @@
         </el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="备注信息" >
+    <!-- <el-form-item label="备注信息" >
       <el-input type="textarea"  :autosize="{ minRows: 3, maxRows: 8}" v-model="dataForm.note" placeholder="备注信息"></el-input>
-    </el-form-item>
+    </el-form-item> -->
     
     <el-form-item label="商品图片" >
       <!-- <el-input v-model="dataForm.flowerPicture" placeholder="商品图片"></el-input> -->
@@ -55,7 +76,7 @@
           </div>
           <div class="el-upload__tip" slot="tip">只支持jpg、png、gif格式的图片！</div>
         </el-upload>
-        <el-button style="margin-left: 50%;    transform: translateX(-50%);" v-show="imageUrl!=''&& imageUrl!=null"  @click="rewardUpload()">重新上传</el-button>
+        <!-- <el-button style="margin-left: 50%;    transform: translateX(-50%);" v-show="imageUrl!=''&& imageUrl!=null"  @click="rewardUpload()">重新上传</el-button> -->
     </el-form-item>
     </el-form>
     <span slot="footer" class="dialog-footer">
@@ -86,6 +107,13 @@
           firstName: '',
           lastName: '',
           note: '',
+          city: '',
+          tags: '',
+          sgrCal: '',
+          sgrCalValue: '',
+          sgrInst: '',
+          sgrInstValue: '',
+          productName: '',
           totalPrice: ''
         },
         dataRule: {
@@ -145,7 +173,14 @@
                 this.dataForm.firstName = data.mallOrder.firstName
                 this.dataForm.lastName = data.mallOrder.lastName
                 this.dataForm.note = data.mallOrder.note
+                this.dataForm.city = data.mallOrder.city
                 this.dataForm.totalPrice = data.mallOrder.totalPrice
+                this.dataForm.tags = data.mallOrder.tags
+                this.dataForm.sgrCal = data.mallOrder.sgrCal
+                this.dataForm.sgrCalValue = data.mallOrder.sgrCalValue
+                this.dataForm.sgrInst = data.mallOrder.sgrInst
+                this.dataForm.sgrInstValue = data.mallOrder.sgrInstValue
+                this.dataForm.productName = data.mallOrder.productName
               }
             })
           }
@@ -181,7 +216,14 @@
                 'firstName': this.dataForm.firstName,
                 'lastName': this.dataForm.lastName,
                 'note': this.dataForm.note,
-                'totalPrice': this.dataForm.totalPrice
+                'city': this.dataForm.city,
+                'totalPrice': this.dataForm.totalPrice,
+                'tags': this.dataForm.tags,
+                'sgrCal': this.dataForm.sgrCal,
+                'sgrCalValue': this.dataForm.sgrCalValue,
+                'sgrInst': this.dataForm.sgrInst,
+                'sgrInstValue': this.dataForm.sgrInstValue,
+                'productName': this.dataForm.productName
               })
             }).then(({data}) => {
               if (data && data.code === 0) {

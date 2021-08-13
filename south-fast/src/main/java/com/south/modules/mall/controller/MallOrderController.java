@@ -52,6 +52,17 @@ public class MallOrderController {
     }
 
     /**
+     * 订单筛选列表
+     */
+    @ApiOperation("订单筛选列表")
+    @GetMapping("/listForSelect")
+    public R listForSelect(@RequestParam Map<String, Object> params){
+        PageUtils page = mallOrderService.listForSelect(params);
+
+        return R.ok().put("page", page);
+    }
+
+    /**
      * 订单状态列表
      */
     @ApiOperation("订单状态列表")
@@ -60,6 +71,27 @@ public class MallOrderController {
         List<OrderStatusVo> statusList = mallOrderService.getStatusList();
 
         return R.ok().put("data", statusList);
+    }
+
+    /**
+     * 改变订单状态
+     */
+    @ApiOperation("改变订单状态")
+    @PostMapping("/updateOrderStatus")
+    public R updateOrderStatus(@RequestBody MallOrderEntity mallOrder){
+        mallOrderService.updateOrderStatus(mallOrder);
+
+        return R.ok();
+    }
+    /**
+     * 改变订单图片
+     */
+    @ApiOperation("改变订单图片")
+    @PostMapping("/updateOrderImages")
+    public R updateOrderImages(HttpServletRequest request, @RequestParam("file") MultipartFile file,@RequestParam("id") String id){
+        String uri=mallOrderService.updateOrderImages(request,file,id);
+
+        return R.ok(uri);
     }
 
     /**
@@ -100,45 +132,8 @@ public class MallOrderController {
     @ApiOperation("商品图片上传")
     @PostMapping("upload/uploadOrderImage")
     public R uploadOrderImage(HttpServletRequest request, @RequestParam("file") MultipartFile file){
-        String fileName=file.getOriginalFilename();
-        String suffixName=fileName.substring(fileName.lastIndexOf("."));
-        //生成文件名称UUID
-        UUID uuid=UUID.randomUUID();
-        String newFileName=uuid.toString()+suffixName;
-        //创建文件
-        File fileDirectory=new File(Constant.FILE_UPLOAD_DIR);
-        File destFile=new File(Constant.FILE_UPLOAD_DIR+newFileName);
-        if(!fileDirectory.exists()){
-            if(!fileDirectory.mkdir()){
-                throw new SOException(BizCodeEnume.MKDIR_FAILED);
-            }
-        }
-        try {
-            file.transferTo(destFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try {
-            return R.ok(getHost(new URI(request.getRequestURL()+""))+"/south-fast/imgs/"+newFileName
-            );
-        } catch (URISyntaxException e) {
-            throw new SOException(BizCodeEnume.UPLOAD_FAILED);
-        }
-    }
-
-    /**
-     * 通过请求获取当前服务器地址
-     * @param uri
-     * @return
-     */
-    private URI getHost(URI uri){
-        URI effectiveURI;
-        try {
-            effectiveURI=new URI(uri.getScheme(),uri.getUserInfo(),uri.getHost(),uri.getPort(),null,null,null);
-        } catch (URISyntaxException e) {
-            effectiveURI=null;
-        }
-        return effectiveURI;
+        String uri=mallOrderService.uploadimg(request,file);
+        return R.ok(uri);
     }
 
     /**

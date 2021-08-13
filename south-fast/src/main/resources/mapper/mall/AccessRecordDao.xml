@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.south.modules.mall.dao.AccessRecordDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.south.modules.mall.entity.AccessRecordEntity" id="accessRecordMap">
+        <result property="id" column="id"/>
+        <result property="orderNumber" column="order_number"/>
+        <result property="userEmail" column="user_email"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <result property="deleteFlag" column="delete_flag"/>
+    </resultMap>
+    <select id="getCurrentCountByOrder" resultType="com.south.modules.mall.entity.AccessRecordEntity">
+         SELECT DATE_FORMAT(create_date,'%Y-%m-%d') as time ,count(*) as viewTotal
+         FROM access_record
+         WHERE order_number= #{orderNumber} and DATE_FORMAT(create_date,'%Y-%m-%d')= #{createDate} GROUP BY time;
+    </select>
+
+
+</mapper>

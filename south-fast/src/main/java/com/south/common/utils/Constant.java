@@ -64,7 +64,7 @@ public class Constant {
 	 * 
 	 * @author chenshun
 	 * @email 15902072436@163.com
-	 * @date 2016年11月15日 下午1:24:29
+	 * @date 2021年11月15日 下午1:24:29
 	 */
     public enum MenuType {
         /**
@@ -206,6 +206,71 @@ public class Constant {
         }
 
         public int getValue() {
+            return value;
+        }
+        public String getName() {
+            return name;
+        }
+    }
+
+    /**
+     * 获取的订单状态
+     *
+     * @author chenshun
+     * @email 15902072436@163.com
+     * @date 2021年11月15日 下午1:24:29
+     */
+    public enum OrderGetStatus {
+        /**
+         * 目录
+         */
+        FUL("2"),
+        /**
+         * 菜单
+         */
+        UNFUL("1");
+
+        private String value;
+
+        OrderGetStatus(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+    }
+
+    /**
+     * 按天
+     *
+     * @author chenshun
+     * @email 15902072436@163.com
+     * @date 2021年11月15日 下午1:24:29
+     */
+    public enum SELECTDAYS {
+        /**
+         * 今天
+         */
+        TODAY(0,"今天"),
+        /**
+         * 昨天 yesterday
+         */
+        YESTERDAY(1,"昨天"),
+        /**
+         * 明天 Tomorrow
+         */
+        TOMORROW(2,"明天");
+
+        private Integer value;
+        private String name;
+
+        SELECTDAYS(Integer value,String name) {
+            this.value = value;
+            this.name = name;
+        }
+
+        public Integer getValue() {
             return value;
         }
         public String getName() {

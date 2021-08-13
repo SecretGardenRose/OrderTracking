@@ -15,6 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  * 多数据源测试
  *
@@ -34,5 +37,16 @@ public class DynamicDataSourceTest {
         dynamicDataSourceTestService.updateUserBySlave1(id);
         dynamicDataSourceTestService.updateUserBySlave2(id);
     }
+
+    @Test
+    public void test2(){
+        Calendar now = Calendar.getInstance();
+        System.out.println("年: " + now.get(Calendar.YEAR));
+        System.out.println("月: " + (now.get(Calendar.MONTH) + 1) + "");
+        System.out.println("日: " + now.get(Calendar.DAY_OF_MONTH));
+        System.out.println(now.getTime());
+    }
+
+
 
 }

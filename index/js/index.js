@@ -1,5 +1,6 @@
 // Api Base url
 axios.defaults.baseURL = 'https://www.sgrcredit.com/';
+// axios.defaults.baseURL = 'http://localhost:8080/';
 
 
 new Vue({
@@ -64,6 +65,13 @@ new Vue({
                     }
                 }else{
                     alert("no data");
+                }
+            })
+            //写入访问记录
+            var params={orderNumber:that.query.mail,userEmail:that.query.order_number};
+            axios.post('south-fast/mall/accessrecord/save',params).then(function (res) {
+                if(res.data.code==0){
+                    console.log("ok");
                 }
             })
         },

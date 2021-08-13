@@ -85,5 +85,33 @@ public class MallOrderEntity implements Serializable {
 	 * 逻辑删除标识
 	 */
 	private Integer deleteFlag;
+	/**
+	 * 标签，逗号分隔
+	 */
+	private String tags;
+	/**
+	 * sgr_cal
+	 */
+	private String sgrCal;
+	/**
+	 * sgr_cal_value
+	 */
+	private String sgrCalValue;
+	/**
+	 * sgr_inst
+	 */
+	private String sgrInst;
+	/**
+	 * sgr_inst_value
+	 */
+	private String sgrInstValue;
+	/**
+	 * product_name
+	 */
+	private String productName;
+	/**
+	 * fulfillment_status
+	 */
+	private String fulfillmentStatus;
 
 }
